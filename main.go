@@ -29,6 +29,7 @@ var (
 )
 
 func main() {
+
 	app := cli.NewApp()
 
 	app.Flags = []cli.Flag{
@@ -107,7 +108,29 @@ func main() {
 						if len(settingDescription) == 0 {
 							log.Fatal("You have to provide a description")
 						}
-						return timeentries.NewTimeEntry(settingToken, settingDescription, settingProjectName)
+						return timeentries.New(settingToken, settingDescription, settingProjectName)
+					},
+					Flags: []cli.Flag{
+						cli.StringFlag{
+							Name:        "project",
+							Usage:       "Assign project",
+							Destination: &settingProjectName,
+						},
+						cli.StringFlag{
+							Name:        "desc",
+							Usage:       "Description",
+							Destination: &settingDescription,
+						},
+					},
+				},
+				{
+					Name:  "update",
+					Usage: "Update a running time entry",
+					Action: func(c *cli.Context) error {
+						if len(settingDescription) == 0 {
+							log.Fatal("You have to provide a description")
+						}
+						return timeentries.Update(settingToken, settingDescription, settingProjectName)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{

@@ -16,7 +16,7 @@ package account
 
 import (
 	"fmt"
-	"github.com/jason0x43/go-toggl"
+	"github.com/sascha-andres/toggl/togglapi"
 )
 
 // Dump writes out account data

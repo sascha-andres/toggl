@@ -16,7 +16,7 @@ package projects
 
 import (
 	"fmt"
-	"github.com/jason0x43/go-toggl"
+	"github.com/sascha-andres/toggl/togglapi"
 )
 
 // List writes out project data

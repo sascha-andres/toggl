@@ -16,11 +16,11 @@ package timeentries
 
 import (
 	"fmt"
-	"github.com/jason0x43/go-toggl"
+	"github.com/sascha-andres/toggl/togglapi"
 )
 
-// NewTimeEntry creates a new time entry
-func NewTimeEntry(settingToken, settingDescription, settingProjectName string) error {
+// New creates a new time entry
+func New(settingToken, settingDescription, settingProjectName string) error {
 	session := toggl.OpenSession(settingToken)
 	if len(settingProjectName) == 0 {
 		_, err := session.StartTimeEntry(settingDescription)
@@ -66,6 +66,75 @@ func StopCurrent(settingToken string) error {
 			break
 		}
 	}
+
+	return nil
+}
+
+// Update sets new values
+func Update(settingToken, settingDescription, settingProjectName string) error {
+	session := toggl.OpenSession(settingToken)
+
+	account, err := session.GetAccount()
+	if err != nil {
+		return err
+	}
+
+	var timeEntry toggl.TimeEntry
+
+	for _, te := range account.Data.TimeEntries {
+		if nil == te.Stop {
+			timeEntry = te
+			break
+		}
+	}
+
+	timeEntry.Description = settingDescription
+
+	if 0 < len(settingProjectName) {
+		var index = -1
+		for i, prj := range account.Data.Projects {
+			if prj.Name == settingProjectName {
+				index = i
+				break
+			}
+		}
+		if index == -1 {
+			return fmt.Errorf("Project not found: %s", settingProjectName)
+		}
+		timeEntry.Pid = account.Data.Projects[index].ID
+	}
+
+	_, err = session.UpdateTimeEntry(timeEntry)
+
+	return err
+
+	// if len(settingProjectName) == 0 {
+	// 	_, err := session.StartTimeEntry(settingDescription)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// } else {
+	// 	// find project
+	// 	account, err := session.GetAccount()
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// 	var index = -1
+	// 	for i, prj := range account.Data.Projects {
+	// 		if prj.Name == settingProjectName {
+	// 			index = i
+	// 			break
+	// 		}
+	// 	}
+	// 	if -1 == index {
+	// 		fmt.Println("Project not found. Use list-projects to view them")
+	// 	} else {
+	// 		_, err = session.StartTimeEntryForProject(settingDescription, account.Data.Projects[index].ID)
+	// 		if err != nil {
+	// 			return err
+	// 		}
+	// 	}
+	// }
 
 	return nil
 }

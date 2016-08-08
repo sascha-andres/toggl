@@ -1,0 +1,7 @@
+#! /bin/bash
+
+rm togglapi/toggl.go
+cp HEADER_toggl togglapi/toggl.go
+
+curl -sS https://raw.githubusercontent.com/jason0x43/go-toggl/master/main.go | grep -v log | grep -v \"os\" >> togglapi/toggl.go
+# curl -sS https://raw.githubusercontent.com/jason0x43/go-toggl/master/main.go >> togglapi/toggl.go
