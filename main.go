@@ -35,7 +35,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "token",
-			Usage:       "Provide you API token",
+			Usage:       "Provide your API token",
 			EnvVar:      "TOGGL_TOKEN",
 			Destination: &settingToken,
 		},
@@ -71,6 +71,9 @@ func main() {
 					Name:  "create",
 					Usage: "Add a new project",
 					Action: func(c *cli.Context) error {
+						if 0 == len(settingProjectName) {
+							log.Fatal("You have to provide a project (--name <project>)")
+						}
 						return projects.Add(settingToken, settingProjectName)
 					},
 					Flags: []cli.Flag{
@@ -85,6 +88,9 @@ func main() {
 					Name:  "delete",
 					Usage: "Delete a project",
 					Action: func(c *cli.Context) error {
+						if 0 == len(settingProjectName) {
+							log.Fatal("You have to provide a project (--name <project>)")
+						}
 						return projects.Delete(settingToken, settingProjectName)
 					},
 					Flags: []cli.Flag{
@@ -157,7 +163,7 @@ func main() {
 	}
 
 	app.Name = "toggl"
-	app.Version = "0.2"
+	app.Version = "20160808-alpha"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)

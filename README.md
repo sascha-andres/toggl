@@ -46,7 +46,7 @@ Just call stop to stop working
 
 ## Acknowledgements
 
-This project uses go-toggl from https://github.com/jason0x43/go-toggl
+This project uses go-toggl from https://github.com/jason0x43/go-toggl by downloading and changing the code. See `get_toggl` script
 
 ## History
 
