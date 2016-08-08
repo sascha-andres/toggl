@@ -1,3 +1,17 @@
+// Copyright 2016 Sascha Andres
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 import (
@@ -15,12 +29,13 @@ var (
 )
 
 func main() {
+
 	app := cli.NewApp()
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "token",
-			Usage:       "Provide you API token",
+			Usage:       "Provide your API token",
 			EnvVar:      "TOGGL_TOKEN",
 			Destination: &settingToken,
 		},
@@ -56,6 +71,9 @@ func main() {
 					Name:  "create",
 					Usage: "Add a new project",
 					Action: func(c *cli.Context) error {
+						if 0 == len(settingProjectName) {
+							log.Fatal("You have to provide a project (--name <project>)")
+						}
 						return projects.Add(settingToken, settingProjectName)
 					},
 					Flags: []cli.Flag{
@@ -70,6 +88,9 @@ func main() {
 					Name:  "delete",
 					Usage: "Delete a project",
 					Action: func(c *cli.Context) error {
+						if 0 == len(settingProjectName) {
+							log.Fatal("You have to provide a project (--name <project>)")
+						}
 						return projects.Delete(settingToken, settingProjectName)
 					},
 					Flags: []cli.Flag{
@@ -93,7 +114,29 @@ func main() {
 						if len(settingDescription) == 0 {
 							log.Fatal("You have to provide a description")
 						}
-						return timeentries.NewTimeEntry(settingToken, settingDescription, settingProjectName)
+						return timeentries.New(settingToken, settingDescription, settingProjectName)
+					},
+					Flags: []cli.Flag{
+						cli.StringFlag{
+							Name:        "project",
+							Usage:       "Assign project",
+							Destination: &settingProjectName,
+						},
+						cli.StringFlag{
+							Name:        "desc",
+							Usage:       "Description",
+							Destination: &settingDescription,
+						},
+					},
+				},
+				{
+					Name:  "update",
+					Usage: "Update a running time entry",
+					Action: func(c *cli.Context) error {
+						if len(settingDescription) == 0 {
+							log.Fatal("You have to provide a description")
+						}
+						return timeentries.Update(settingToken, settingDescription, settingProjectName)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{
@@ -120,7 +163,7 @@ func main() {
 	}
 
 	app.Name = "toggl"
-	app.Version = "0.2"
+	app.Version = "20160808-alpha"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)
