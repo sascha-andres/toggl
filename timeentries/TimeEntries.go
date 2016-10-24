@@ -16,14 +16,16 @@ package timeentries
 
 import (
 	"fmt"
+
 	"github.com/sascha-andres/toggl/togglapi"
+	"github.com/sascha-andres/toggl/types"
 )
 
 // New creates a new time entry
-func New(settingToken, settingDescription, settingProjectName string) error {
-	session := toggl.OpenSession(settingToken)
-	if len(settingProjectName) == 0 {
-		_, err := session.StartTimeEntry(settingDescription)
+func New(settings types.Settings) error {
+	session := toggl.OpenSession(settings.Token)
+	if len(settings.ProjectName) == 0 {
+		_, err := session.StartTimeEntry(settings.Description)
 		if err != nil {
 			return err
 		}
@@ -35,7 +37,7 @@ func New(settingToken, settingDescription, settingProjectName string) error {
 		}
 		var index = -1
 		for i, prj := range account.Data.Projects {
-			if prj.Name == settingProjectName {
+			if prj.Name == settings.ProjectName {
 				index = i
 				break
 			}
@@ -43,7 +45,7 @@ func New(settingToken, settingDescription, settingProjectName string) error {
 		if -1 == index {
 			fmt.Println("Project not found. Use list-projects to view them")
 		} else {
-			_, err = session.StartTimeEntryForProject(settingDescription, account.Data.Projects[index].ID)
+			_, err = session.StartTimeEntryForProject(settings.Description, account.Data.Projects[index].ID)
 			if err != nil {
 				return err
 			}
@@ -71,8 +73,8 @@ func StopCurrent(settingToken string) error {
 }
 
 // Update sets new values
-func Update(settingToken, settingDescription, settingProjectName string) error {
-	session := toggl.OpenSession(settingToken)
+func Update(settings types.Settings) error {
+	session := toggl.OpenSession(settings.Token)
 
 	account, err := session.GetAccount()
 	if err != nil {
@@ -88,18 +90,18 @@ func Update(settingToken, settingDescription, settingProjectName string) error {
 		}
 	}
 
-	timeEntry.Description = settingDescription
+	timeEntry.Description = settings.Description
 
-	if 0 < len(settingProjectName) {
+	if 0 < len(settings.ProjectName) {
 		var index = -1
 		for i, prj := range account.Data.Projects {
-			if prj.Name == settingProjectName {
+			if prj.Name == settings.ProjectName {
 				index = i
 				break
 			}
 		}
 		if index == -1 {
-			return fmt.Errorf("Project not found: %s", settingProjectName)
+			return fmt.Errorf("Project not found: %s", settings.ProjectName)
 		}
 		timeEntry.Pid = account.Data.Projects[index].ID
 	}
@@ -107,34 +109,4 @@ func Update(settingToken, settingDescription, settingProjectName string) error {
 	_, err = session.UpdateTimeEntry(timeEntry)
 
 	return err
-
-	// if len(settingProjectName) == 0 {
-	// 	_, err := session.StartTimeEntry(settingDescription)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// } else {
-	// 	// find project
-	// 	account, err := session.GetAccount()
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// 	var index = -1
-	// 	for i, prj := range account.Data.Projects {
-	// 		if prj.Name == settingProjectName {
-	// 			index = i
-	// 			break
-	// 		}
-	// 	}
-	// 	if -1 == index {
-	// 		fmt.Println("Project not found. Use list-projects to view them")
-	// 	} else {
-	// 		_, err = session.StartTimeEntryForProject(settingDescription, account.Data.Projects[index].ID)
-	// 		if err != nil {
-	// 			return err
-	// 		}
-	// 	}
-	// }
-
-	return nil
 }

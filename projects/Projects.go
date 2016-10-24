@@ -16,7 +16,9 @@ package projects
 
 import (
 	"fmt"
+
 	"github.com/sascha-andres/toggl/togglapi"
+	"github.com/sascha-andres/toggl/types"
 )
 
 // List writes out project data
@@ -37,27 +39,27 @@ func List(settingToken string) error {
 }
 
 // Add a new project
-func Add(settingToken, settingProjectName string) error {
-	session := toggl.OpenSession(settingToken)
+func Add(settings types.Settings) error {
+	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
 		return err
 	}
 	wid := account.Data.Workspaces[0].ID
-	_, err = session.CreateProject(settingProjectName, wid)
+	_, err = session.CreateProject(settings.ProjectName, wid)
 	return err
 }
 
 // Delete a  project
-func Delete(settingToken, settingProjectName string) error {
-	session := toggl.OpenSession(settingToken)
+func Delete(settings types.Settings) error {
+	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
 		return err
 	}
 	var projectToDelete toggl.Project
 	for _, prj := range account.Data.Projects {
-		if prj.Name == settingProjectName {
+		if prj.Name == settings.ProjectName {
 			projectToDelete = prj
 			break
 		}
