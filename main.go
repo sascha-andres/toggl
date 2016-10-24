@@ -15,18 +15,17 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/sascha-andres/toggl/account"
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/sascha-andres/toggl/timeentries"
+	"github.com/sascha-andres/toggl/types"
 	"github.com/urfave/cli"
-	"log"
-	"os"
 )
 
-var (
-	settingVerbose, settingAccountLastTimeEntry          bool
-	settingToken, settingProjectName, settingDescription string
-)
+var settings types.Settings
 
 func main() {
 
@@ -37,7 +36,7 @@ func main() {
 			Name:        "token",
 			Usage:       "Provide your API token",
 			EnvVar:      "TOGGL_TOKEN",
-			Destination: &settingToken,
+			Destination: &settings.Token,
 		},
 	}
 
@@ -46,13 +45,13 @@ func main() {
 			Name:  "account",
 			Usage: "Dump account info",
 			Action: func(c *cli.Context) error {
-				return account.Dump(settingToken, settingAccountLastTimeEntry)
+				return account.Dump(settings)
 			},
 			Flags: []cli.Flag{
 				cli.BoolFlag{
 					Name:        "time",
 					Usage:       "specify if you want to print your last timeentry",
-					Destination: &settingAccountLastTimeEntry,
+					Destination: &settings.AccountLastTimeEntry,
 				},
 			},
 		},
@@ -64,23 +63,23 @@ func main() {
 					Name:  "list",
 					Usage: "Lists all projects",
 					Action: func(c *cli.Context) error {
-						return projects.List(settingToken)
+						return projects.List(settings.Token)
 					},
 				},
 				{
 					Name:  "create",
 					Usage: "Add a new project",
 					Action: func(c *cli.Context) error {
-						if 0 == len(settingProjectName) {
+						if 0 == len(settings.ProjectName) {
 							log.Fatal("You have to provide a project (--name <project>)")
 						}
-						return projects.Add(settingToken, settingProjectName)
+						return projects.Add(settings)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{
 							Name:        "name",
 							Usage:       "project name",
-							Destination: &settingProjectName,
+							Destination: &settings.ProjectName,
 						},
 					},
 				},
@@ -88,16 +87,16 @@ func main() {
 					Name:  "delete",
 					Usage: "Delete a project",
 					Action: func(c *cli.Context) error {
-						if 0 == len(settingProjectName) {
+						if 0 == len(settings.ProjectName) {
 							log.Fatal("You have to provide a project (--name <project>)")
 						}
-						return projects.Delete(settingToken, settingProjectName)
+						return projects.Delete(settings)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{
 							Name:        "name",
 							Usage:       "project name",
-							Destination: &settingProjectName,
+							Destination: &settings.ProjectName,
 						},
 					},
 				},
@@ -111,21 +110,21 @@ func main() {
 					Name:  "start",
 					Usage: "Start time entry",
 					Action: func(c *cli.Context) error {
-						if len(settingDescription) == 0 {
+						if len(settings.Description) == 0 {
 							log.Fatal("You have to provide a description")
 						}
-						return timeentries.New(settingToken, settingDescription, settingProjectName)
+						return timeentries.New(settings)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{
 							Name:        "project",
 							Usage:       "Assign project",
-							Destination: &settingProjectName,
+							Destination: &settings.ProjectName,
 						},
 						cli.StringFlag{
 							Name:        "desc",
 							Usage:       "Description",
-							Destination: &settingDescription,
+							Destination: &settings.Description,
 						},
 					},
 				},
@@ -133,21 +132,21 @@ func main() {
 					Name:  "update",
 					Usage: "Update a running time entry",
 					Action: func(c *cli.Context) error {
-						if len(settingDescription) == 0 {
+						if len(settings.Description) == 0 {
 							log.Fatal("You have to provide a description")
 						}
-						return timeentries.Update(settingToken, settingDescription, settingProjectName)
+						return timeentries.Update(settings)
 					},
 					Flags: []cli.Flag{
 						cli.StringFlag{
 							Name:        "project",
 							Usage:       "Assign project",
-							Destination: &settingProjectName,
+							Destination: &settings.ProjectName,
 						},
 						cli.StringFlag{
 							Name:        "desc",
 							Usage:       "Description",
-							Destination: &settingDescription,
+							Destination: &settings.Description,
 						},
 					},
 				},
@@ -155,7 +154,7 @@ func main() {
 					Name:  "stop",
 					Usage: "Stop a running time entry",
 					Action: func(c *cli.Context) error {
-						return timeentries.StopCurrent(settingToken)
+						return timeentries.StopCurrent(settings.Token)
 					},
 				},
 			},
@@ -163,7 +162,7 @@ func main() {
 	}
 
 	app.Name = "toggl"
-	app.Version = "20160808-alpha"
+	app.Version = "20161024"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)

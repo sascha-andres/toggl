@@ -48,6 +48,17 @@ Just call stop to stop working
 
 This project uses go-toggl from https://github.com/jason0x43/go-toggl by downloading and changing the code. See `get_toggl` script
 
+## Code ##
+
+Code is open source under the Apache 2.0 License. You can obtain it at https://github.com/sascha-andres/toggl
+
+If you want to contribute feel free to open an issue
+
+## Help
+
+Feel free to contact me by creating an issue on https://github.com/sascha-andres/toggl/issues.
+You can connect to me using Twitter at https://twitter.com/livingit_de.
+
 ## History
 
 ### TBD

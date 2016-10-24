@@ -16,12 +16,14 @@ package account
 
 import (
 	"fmt"
+
 	"github.com/sascha-andres/toggl/togglapi"
+	"github.com/sascha-andres/toggl/types"
 )
 
 // Dump writes out account data
-func Dump(settingToken string, printTimeEntry bool) error {
-	session := toggl.OpenSession(settingToken)
+func Dump(settings types.Settings) error {
+	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
 		return err
@@ -33,7 +35,7 @@ func Dump(settingToken string, printTimeEntry bool) error {
 	fmt.Println(fmt.Sprintf("  Tags: %d", len(account.Data.Tags)))
 
 	timeEntries := len(account.Data.TimeEntries)
-	if printTimeEntry && timeEntries > 0 {
+	if settings.AccountLastTimeEntry && timeEntries > 0 {
 		if nil == account.Data.TimeEntries[timeEntries-1].Stop {
 			fmt.Println(fmt.Sprintf("Current time entry: %s - Running: %s", account.Data.TimeEntries[timeEntries-1].Start.Format("15:04:05"), account.Data.TimeEntries[timeEntries-1].Description))
 		} else {
