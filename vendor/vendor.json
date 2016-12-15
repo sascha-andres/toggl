@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "0Il1DbcyN359or+I4zLd6lwFirk=",
+			"path": "github.com/urfave/cli",
+			"revision": "11c134509d89c2018675f369955218a180dc7428",
+			"revisionTime": "2016-07-16T16:11:36Z"
+		}
+	],
+	"rootPath": "github.com/sascha-andres/toggl"
+}
