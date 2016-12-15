@@ -63,6 +63,6 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 ## History
 
-### TBD
-
-* Initial version
+|Version|Authors|Description|
+|---|---|---|
+|20161215|Sascha Andres|Initial|
