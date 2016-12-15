@@ -2,6 +2,8 @@
 
 This is a toggle command line utility. It is written in GO.
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/sascha-andres/toggl)](https://goreportcard.com/report/github.com/sascha-andres/toggl) [![Build Status](https://travis-ci.org/sascha-andres/toggl.svg?branch=master)](https://travis-ci.org/sascha-andres/toggl)
+
 ## How to use
 
 ### Show statistic
@@ -61,6 +63,6 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 ## History
 
-### TBD
-
-* Initial version
+|Version|Authors|Description|
+|---|---|---|
+|20161215|Sascha Andres|Initial|
