@@ -17,12 +17,14 @@ package projects
 import (
 	"fmt"
 
-	"github.com/sascha-andres/toggl/togglapi"
+	"github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/types"
 )
 
 // List writes out project data
 func List(settingToken string) error {
+	toggl.DisableLogging()
+
 	session := toggl.OpenSession(settingToken)
 	account, err := session.GetAccount()
 	if err != nil {
@@ -40,6 +42,8 @@ func List(settingToken string) error {
 
 // Add a new project
 func Add(settings types.Settings) error {
+	toggl.DisableLogging()
+
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
@@ -52,6 +56,8 @@ func Add(settings types.Settings) error {
 
 // Delete a  project
 func Delete(settings types.Settings) error {
+	toggl.DisableLogging()
+
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {

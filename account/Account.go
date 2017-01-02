@@ -17,12 +17,14 @@ package account
 import (
 	"fmt"
 
-	"github.com/sascha-andres/toggl/togglapi"
+	"github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/types"
 )
 
 // Dump writes out account data
 func Dump(settings types.Settings) error {
+	toggl.DisableLogging()
+
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
