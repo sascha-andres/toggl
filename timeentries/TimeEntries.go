@@ -37,13 +37,7 @@ func New(settings types.Settings) error {
 		if err != nil {
 			return err
 		}
-		var index = -1
-		for i, prj := range account.Data.Projects {
-			if prj.Name == settings.ProjectName {
-				index = i
-				break
-			}
-		}
+		var index = getProjectIndex(account, settings)
 		if -1 == index {
 			fmt.Println("Project not found. Use list-projects to view them")
 		} else {
@@ -99,13 +93,7 @@ func Update(settings types.Settings) error {
 	timeEntry.Description = settings.Description
 
 	if 0 < len(settings.ProjectName) {
-		var index = -1
-		for i, prj := range account.Data.Projects {
-			if prj.Name == settings.ProjectName {
-				index = i
-				break
-			}
-		}
+		index := getProjectIndex(account, settings)
 		if index == -1 {
 			return fmt.Errorf("Project not found: %s", settings.ProjectName)
 		}
@@ -115,4 +103,13 @@ func Update(settings types.Settings) error {
 	_, err = session.UpdateTimeEntry(timeEntry)
 
 	return err
+}
+
+func getProjectIndex(account toggl.Account, settings types.Settings) int {
+	for i, prj := range account.Data.Projects {
+		if prj.Name == settings.ProjectName {
+			return i
+		}
+	}
+	return -1
 }
