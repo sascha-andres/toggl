@@ -5,3 +5,4 @@ go:
 
 install:
  - go get github.com/urfave/cli
+ - go get github.com/sascha-andres/go-toggl
