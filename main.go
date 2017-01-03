@@ -162,7 +162,7 @@ func main() {
 	}
 
 	app.Name = "toggl"
-	app.Version = "20161215"
+	app.Version = "20170103"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)

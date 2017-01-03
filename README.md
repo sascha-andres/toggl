@@ -48,7 +48,9 @@ Just call stop to stop working
 
 ## Acknowledgements
 
-This project uses go-toggl from https://github.com/jason0x43/go-toggl by downloading and changing the code. See `get_toggl` script
+This project uses go-toggl from https://github.com/jason0x43/go-toggl
+
+_Note:_ To disable logging I forked the library and created a pull request. Until this pull request has been accepted, I am using my fork located at https://github.com/sascha-andres/go-toggl
 
 ## Code ##
 
