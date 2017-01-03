@@ -37,14 +37,13 @@ func New(settings types.Settings) error {
 		if err != nil {
 			return err
 		}
-		var index = getProjectIndex(account, settings)
-		if -1 == index {
-			fmt.Println("Project not found. Use list-projects to view them")
-		} else {
-			_, err = session.StartTimeEntryForProject(settings.Description, account.Data.Projects[index].ID)
-			if err != nil {
-				return err
-			}
+		var index int
+		if index, err = getProjectIndex(account, settings); err != nil {
+			return err
+		}
+		_, err = session.StartTimeEntryForProject(settings.Description, account.Data.Projects[index].ID)
+		if err != nil {
+			return err
 		}
 	}
 
@@ -60,11 +59,10 @@ func StopCurrent(settingToken string) error {
 	if err != nil {
 		return err
 	}
-	for _, te := range account.Data.TimeEntries {
-		if nil == te.Stop {
-			session.StopTimeEntry(te)
-			break
-		}
+	var timeEntry *toggl.TimeEntry
+	timeEntry, _ = getCurrentTimeEntry(account)
+	if nil != timeEntry {
+		session.StopTimeEntry(*timeEntry)
 	}
 
 	return nil
@@ -81,35 +79,40 @@ func Update(settings types.Settings) error {
 		return err
 	}
 
-	var timeEntry toggl.TimeEntry
-
-	for _, te := range account.Data.TimeEntries {
-		if nil == te.Stop {
-			timeEntry = te
-			break
-		}
+	var timeEntry *toggl.TimeEntry
+	if timeEntry, err = getCurrentTimeEntry(account); err != nil {
+		return err
 	}
 
 	timeEntry.Description = settings.Description
 
 	if 0 < len(settings.ProjectName) {
-		index := getProjectIndex(account, settings)
-		if index == -1 {
-			return fmt.Errorf("Project not found: %s", settings.ProjectName)
+		var index int
+		if index, err = getProjectIndex(account, settings); err != nil {
+			return err
 		}
 		timeEntry.Pid = account.Data.Projects[index].ID
 	}
 
-	_, err = session.UpdateTimeEntry(timeEntry)
+	_, err = session.UpdateTimeEntry(*timeEntry)
 
 	return err
 }
 
-func getProjectIndex(account toggl.Account, settings types.Settings) int {
+func getProjectIndex(account toggl.Account, settings types.Settings) (int, error) {
 	for i, prj := range account.Data.Projects {
 		if prj.Name == settings.ProjectName {
-			return i
+			return i, nil
 		}
 	}
-	return -1
+	return -1, fmt.Errorf("Project not found: %s", settings.ProjectName)
+}
+
+func getCurrentTimeEntry(account toggl.Account) (*toggl.TimeEntry, error) {
+	for _, te := range account.Data.TimeEntries {
+		if nil == te.Stop {
+			return &te, nil
+		}
+	}
+	return nil, fmt.Errorf("No current time entry")
 }
