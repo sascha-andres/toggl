@@ -18,6 +18,9 @@ package types
 
 // Settings is a container for possible commandline switches
 type Settings struct {
-	Verbose, AccountLastTimeEntry   bool
-	Token, ProjectName, Description string
+	Verbose              bool
+	AccountLastTimeEntry bool
+	Token                string
+	ProjectName          string
+	Description          string
 }

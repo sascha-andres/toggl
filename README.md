@@ -2,7 +2,7 @@
 
 This is a toggle command line utility. It is written in GO.
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/sascha-andres/toggl)](https://goreportcard.com/report/github.com/sascha-andres/toggl) [![Build Status](https://travis-ci.org/sascha-andres/toggl.svg?branch=master)](https://travis-ci.org/sascha-andres/toggl)
+[![Go Report Card](https://goreportcard.com/badge/github.com/sascha-andres/toggl)](https://goreportcard.com/report/github.com/sascha-andres/toggl) [![Build Status](https://travis-ci.org/sascha-andres/toggl.svg?branch=master)](https://travis-ci.org/sascha-andres/toggl) [![codebeat badge](https://codebeat.co/badges/66adec90-4ccb-4d6a-94c6-484f11bd4c2a)](https://codebeat.co/projects/github-com-sascha-andres-toggl)
 
 ## How to use
 
@@ -67,4 +67,6 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 |Version|Authors|Description|
 |---|---|---|
+|20170104|Sascha Andres|Refactorings|
+|20170103|Sascha Andres|Forked library|
 |20161215|Sascha Andres|Initial|

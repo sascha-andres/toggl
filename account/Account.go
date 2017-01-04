@@ -23,8 +23,6 @@ import (
 
 // Dump writes out account data
 func Dump(settings types.Settings) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {

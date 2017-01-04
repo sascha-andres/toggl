@@ -18,6 +18,7 @@ import (
 	"log"
 	"os"
 
+	toggl "github.com/sascha-andres/go-toggl"
 	"github.com/sascha-andres/toggl/account"
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/sascha-andres/toggl/timeentries"
@@ -40,7 +41,25 @@ func main() {
 		},
 	}
 
-	app.Commands = []cli.Command{
+	commands := getAccountCommands()
+	for _, cmd := range getProjectCommands() {
+		commands = append(commands, cmd)
+	}
+	for _, cmd := range getTimeCommands() {
+		commands = append(commands, cmd)
+	}
+
+	app.Commands = commands
+
+	app.Name = "toggl"
+	app.Version = "20170104"
+	app.Usage = "A commandline toggl client"
+
+	app.Run(os.Args)
+}
+
+func getAccountCommands() []cli.Command {
+	return []cli.Command{
 		{
 			Name:  "account",
 			Usage: "Dump account info",
@@ -55,6 +74,11 @@ func main() {
 				},
 			},
 		},
+	}
+}
+
+func getProjectCommands() []cli.Command {
+	return []cli.Command{
 		{
 			Name:  "project",
 			Usage: "Work on projects",
@@ -102,6 +126,11 @@ func main() {
 				},
 			},
 		},
+	}
+}
+
+func getTimeCommands() []cli.Command {
+	return []cli.Command{
 		{
 			Name:  "time",
 			Usage: "Work on projects",
@@ -160,10 +189,8 @@ func main() {
 			},
 		},
 	}
+}
 
-	app.Name = "toggl"
-	app.Version = "20170103"
-	app.Usage = "A commandline toggl client"
-
-	app.Run(os.Args)
+func init() {
+	toggl.DisableLogging()
 }
