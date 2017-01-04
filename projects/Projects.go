@@ -42,8 +42,6 @@ func List(settingToken string) error {
 
 // Add a new project
 func Add(settings types.Settings) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {
@@ -56,8 +54,6 @@ func Add(settings types.Settings) error {
 
 // Delete a  project
 func Delete(settings types.Settings) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settings.Token)
 	account, err := session.GetAccount()
 	if err != nil {

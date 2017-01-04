@@ -23,8 +23,6 @@ import (
 
 // New creates a new time entry
 func New(settings types.Settings) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settings.Token)
 	if len(settings.ProjectName) == 0 {
 		_, err := session.StartTimeEntry(settings.Description)
@@ -52,8 +50,6 @@ func New(settings types.Settings) error {
 
 // StopCurrent stops a running time entry creates a new time entry
 func StopCurrent(settingToken string) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settingToken)
 	account, err := session.GetAccount()
 	if err != nil {
@@ -70,8 +66,6 @@ func StopCurrent(settingToken string) error {
 
 // Update sets new values
 func Update(settings types.Settings) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settings.Token)
 
 	account, err := session.GetAccount()

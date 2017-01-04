@@ -18,6 +18,7 @@ import (
 	"log"
 	"os"
 
+	toggl "github.com/sascha-andres/go-toggl"
 	"github.com/sascha-andres/toggl/account"
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/sascha-andres/toggl/timeentries"
@@ -188,4 +189,8 @@ func getTimeCommands() []cli.Command {
 			},
 		},
 	}
+}
+
+func init() {
+	toggl.DisableLogging()
 }
