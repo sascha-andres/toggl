@@ -3,10 +3,10 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "cKwUp3t4QbkOpYjGLA1ERu9dp4w=",
+			"checksumSHA1": "/tZrYyAbdFHxIfm2jgkjzcMSOaM=",
 			"path": "github.com/sascha-andres/go-toggl",
-			"revision": "dda454b3df0bd37c6fb80c2436546e7d59ff9c18",
-			"revisionTime": "2017-01-02T10:39:18Z"
+			"revision": "0dae44628bf0ec2e6db77c737d45c33f447794b4",
+			"revisionTime": "2017-01-05T09:56:11Z"
 		},
 		{
 			"checksumSHA1": "0Il1DbcyN359or+I4zLd6lwFirk=",
