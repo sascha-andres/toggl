@@ -23,8 +23,6 @@ import (
 
 // List writes out project data
 func List(settingToken string) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settingToken)
 	account, err := session.GetAccount()
 	if err != nil {

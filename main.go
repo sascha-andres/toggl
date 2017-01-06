@@ -192,5 +192,5 @@ func getTimeCommands() []cli.Command {
 }
 
 func init() {
-	toggl.DisableLogging()
+	toggl.DisableLog()
 }
