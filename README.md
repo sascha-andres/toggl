@@ -65,6 +65,7 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 |Version|Authors|Description|
 |---|---|---|
+|20170111|Sascha Andres|Using original library|
 |20170104|Sascha Andres|Refactorings|
 |20170103|Sascha Andres|Forked library|
 |20161215|Sascha Andres|Initial|
