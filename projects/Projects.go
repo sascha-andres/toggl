@@ -17,7 +17,7 @@ package projects
 import (
 	"fmt"
 
-	"github.com/sascha-andres/go-toggl"
+	"github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/types"
 )
 

@@ -18,7 +18,7 @@ import (
 	"log"
 	"os"
 
-	toggl "github.com/sascha-andres/go-toggl"
+	toggl "github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/account"
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/sascha-andres/toggl/timeentries"
