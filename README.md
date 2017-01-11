@@ -50,8 +50,6 @@ Just call stop to stop working
 
 This project uses go-toggl from https://github.com/jason0x43/go-toggl
 
-_Note:_ To disable logging I forked the library and created a pull request. Until this pull request has been accepted, I am using my fork located at https://github.com/sascha-andres/go-toggl
-
 ## Code ##
 
 Code is open source under the Apache 2.0 License. You can obtain it at https://github.com/sascha-andres/toggl
@@ -67,6 +65,7 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 |Version|Authors|Description|
 |---|---|---|
+|20170111|Sascha Andres|Using original library|
 |20170104|Sascha Andres|Refactorings|
 |20170103|Sascha Andres|Forked library|
 |20161215|Sascha Andres|Initial|

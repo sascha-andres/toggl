@@ -17,14 +17,12 @@ package projects
 import (
 	"fmt"
 
-	"github.com/sascha-andres/go-toggl"
+	"github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/types"
 )
 
 // List writes out project data
 func List(settingToken string) error {
-	toggl.DisableLogging()
-
 	session := toggl.OpenSession(settingToken)
 	account, err := session.GetAccount()
 	if err != nil {

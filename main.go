@@ -18,7 +18,7 @@ import (
 	"log"
 	"os"
 
-	toggl "github.com/sascha-andres/go-toggl"
+	toggl "github.com/jason0x43/go-toggl"
 	"github.com/sascha-andres/toggl/account"
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/sascha-andres/toggl/timeentries"
@@ -52,7 +52,7 @@ func main() {
 	app.Commands = commands
 
 	app.Name = "toggl"
-	app.Version = "20170104"
+	app.Version = "20170111"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)
@@ -192,5 +192,5 @@ func getTimeCommands() []cli.Command {
 }
 
 func init() {
-	toggl.DisableLogging()
+	toggl.DisableLog()
 }
