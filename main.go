@@ -52,7 +52,7 @@ func main() {
 	app.Commands = commands
 
 	app.Name = "toggl"
-	app.Version = "20170104"
+	app.Version = "20170111"
 	app.Usage = "A commandline toggl client"
 
 	app.Run(os.Args)
