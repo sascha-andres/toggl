@@ -4,6 +4,6 @@ go:
   - 1.7.x
 
 install:
- - go getgithub.com/spf13/cobra
- - go getgithub.com/spf13/viper
+ - go get github.com/spf13/cobra
+ - go get github.com/spf13/viper
  - go get github.com/jason0x43/go-toggl
