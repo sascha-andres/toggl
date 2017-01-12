@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // accountCmd represents the account command
@@ -32,21 +33,12 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// TODO: Work your own magic here
-		fmt.Println("account called")
+		fmt.Printf("account called with flag %v", viper.GetBool("account.time"))
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(accountCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// accountCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// accountCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
+	accountCmd.Flags().BoolP("time", "t", false, "Print your last timeentry")
+	viper.BindPFlag("account.time", accountCmd.Flags().Lookup("time"))
 }
