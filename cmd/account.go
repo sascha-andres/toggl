@@ -15,8 +15,9 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 
+	"github.com/sascha-andres/toggl/account"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -32,8 +33,9 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// TODO: Work your own magic here
-		fmt.Printf("account called with flag %v", viper.GetBool("account.time"))
+		if err := account.Dump(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

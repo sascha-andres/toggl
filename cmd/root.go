@@ -16,13 +16,13 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-var togglToken string
 var cfgFile string
 
 // RootCmd represents the base command when called without any subcommands
@@ -43,6 +43,9 @@ to quickly create a Cobra application.`,
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	if "" == viper.GetString("token") {
+		log.Fatal("You need to provide the token")
+	}
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
@@ -53,8 +56,9 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toggl.yaml)")
-	RootCmd.PersistentFlags().StringVar(&togglToken, "token", "", "Provide your API token")
-	viper.BindPFlag("token", RootCmd.Flags().Lookup("token"))
+	RootCmd.PersistentFlags().String("token", "", "Provide your API token")
+	viper.BindPFlag("token", RootCmd.PersistentFlags().Lookup("token"))
+	viper.BindEnv("token", "TOGGL_TOKEN") // backwards compatibilty
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -66,7 +70,8 @@ func initConfig() {
 	viper.SetConfigName(".toggl") // name of config file (without extension)
 	viper.AddConfigPath("$HOME")  // adding home directory as first search path
 	viper.AddConfigPath(".")      // adding home directory as first search path
-	viper.AutomaticEnv()          // read in environment variables that match
+	viper.SetEnvPrefix("toggl")
+	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {

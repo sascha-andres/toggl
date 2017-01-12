@@ -14,8 +14,15 @@
 
 package main
 
-import "github.com/sascha-andres/toggl/cmd"
+import (
+	toggl "github.com/jason0x43/go-toggl"
+	"github.com/sascha-andres/toggl/cmd"
+)
 
 func main() {
 	cmd.Execute()
+}
+
+func init() {
+	toggl.DisableLog()
 }
