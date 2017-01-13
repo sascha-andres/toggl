@@ -4,6 +4,5 @@ go:
   - 1.7.x
 
 install:
- - go get github.com/spf13/cobra
- - go get github.com/spf13/viper
- - go get github.com/jason0x43/go-toggl
+ - go get -u -v github.com/kardianos/govendor
+ - cd $GOPATH/src/github.com/spf13/hugo && govendor sync && go install
