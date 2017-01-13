@@ -41,8 +41,8 @@ Example toggl time start --desc "Hello toggl!"`,
 
 func init() {
 	timeCmd.AddCommand(startCmd)
-	timeCmd.Flags().StringP("project", "p", "", "Assign project")
-	timeCmd.Flags().StringP("desc", "d", "", "Description")
-	viper.BindPFlag("time.project", timeCmd.Flags().Lookup("project"))
-	viper.BindPFlag("time.description", timeCmd.Flags().Lookup("desc"))
+	startCmd.Flags().StringP("project", "p", "", "Assign project")
+	startCmd.Flags().StringP("desc", "d", "", "Description")
+	viper.BindPFlag("time.project", startCmd.Flags().Lookup("project"))
+	viper.BindPFlag("time.description", startCmd.Flags().Lookup("desc"))
 }
