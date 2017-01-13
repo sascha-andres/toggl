@@ -12,17 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
-import (
-	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
-)
+import "github.com/spf13/cobra"
 
-func main() {
-	cmd.Execute()
+// projectCmd represents the project command
+var projectCmd = &cobra.Command{
+	Use:   "project",
+	Short: "Command for managing your projects",
+	Long: `No functionality itself. It is a container for the following commands:
+
+- create
+- delete
+- list`,
 }
 
 func init() {
-	toggl.DisableLog()
+	RootCmd.AddCommand(projectCmd)
 }

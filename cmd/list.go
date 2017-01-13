@@ -12,17 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
 import (
-	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
+	"log"
+
+	"github.com/sascha-andres/toggl/projects"
+	"github.com/spf13/cobra"
 )
 
-func main() {
-	cmd.Execute()
+// listCmd represents the list command
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "List your projects",
+	Long: `Show a list of your projects. Displays one project per line.
+	
+Format used: "  <Name> (<ID>)"
+
+toggl project list`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if err := projects.List(); err != nil {
+			log.Fatal(err)
+		}
+	},
 }
 
 func init() {
-	toggl.DisableLog()
+	projectCmd.AddCommand(listCmd)
 }

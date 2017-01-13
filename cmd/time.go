@@ -12,17 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
-import (
-	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
-)
+import "github.com/spf13/cobra"
 
-func main() {
-	cmd.Execute()
+// timeCmd represents the time command
+var timeCmd = &cobra.Command{
+	Use:   "time",
+	Short: "Manage your running time entry",
+	Long: `No functionality itself. It is a container for the following commands:
+
+- start
+- stop
+- update`,
 }
 
 func init() {
-	toggl.DisableLog()
+	RootCmd.AddCommand(timeCmd)
 }
