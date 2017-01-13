@@ -32,6 +32,7 @@ You can provide a project using --project and a descriptionusing --desc.
 
 Example toggl time start --desc "Hello toggl!"`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if err := timeentries.New(); err != nil {
 			log.Fatal(err)
 		}

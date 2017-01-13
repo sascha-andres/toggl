@@ -34,6 +34,7 @@ Tag count
 
 If you add --time the last time entry will be printed, too.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if err := account.Dump(); err != nil {
 			log.Fatal(err)
 		}

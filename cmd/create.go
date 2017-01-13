@@ -34,6 +34,7 @@ Example: toggl project create --name "My project"
 
 Note: --name is required`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if "" == viper.GetString("project.name") {
 			log.Fatal("Please provide --name")
 		}

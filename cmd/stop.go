@@ -30,6 +30,7 @@ time entry by calling
 
   toggl time stop`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if err := timeentries.StopCurrent(); err != nil {
 			log.Fatal(err)
 		}

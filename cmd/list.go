@@ -31,6 +31,7 @@ Format used: "  <Name> (<ID>)"
 
 toggl project list`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if err := projects.List(); err != nil {
 			log.Fatal(err)
 		}

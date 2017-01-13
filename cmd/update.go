@@ -30,6 +30,7 @@ var updateCmd = &cobra.Command{
 
   toggl time update --desc "New description" --project "My project"`,
 	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
 		if err := timeentries.Update(); err != nil {
 			log.Fatal(err)
 		}
