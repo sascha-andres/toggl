@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -23,14 +25,18 @@ import (
 // createCmd represents the create command
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Create a new project",
+	Long: `Use this command to create a new project.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+A project in toggl is a way to group time entries.
+
+Example: toggl project create --name "My project"
+
+Note: --name is required`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if "" == viper.GetString("project.name") {
+			log.Fatal("Please provide --name")
+		}
 		projects.Add()
 	},
 }

@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -23,14 +25,16 @@ import (
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Delete a project for toggl",
+	Long: `Delete a project on toggl.comp
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Usage: toggl project delete --name "My project"
+
+Note: --name is required`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if "" == viper.GetString("project.name") {
+			log.Fatal("Please provide --name")
+		}
 		projects.Delete()
 	},
 }

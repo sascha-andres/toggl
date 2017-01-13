@@ -25,13 +25,14 @@ import (
 // accountCmd represents the account command
 var accountCmd = &cobra.Command{
 	Use:   "account",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Print some account information",
+	Long: `The command prints out the following information:
+Timezone
+Workspace count
+Project count
+Tag count
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+If you add --time the last time entry will be printed, too.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := account.Dump(); err != nil {
 			log.Fatal(err)

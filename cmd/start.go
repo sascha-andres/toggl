@@ -23,13 +23,12 @@ import (
 // startCmd represents the start command
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Start a new time entry in toggl",
+	Long: `To start a new time entry in toggl use toggl time start
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+You can provide a project using --project and a descriptionusing --desc.
+
+Example toggl time start --desc "Hello toggl!"`,
 	Run: func(cmd *cobra.Command, args []string) {
 		timeentries.New()
 	},

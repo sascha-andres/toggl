@@ -22,13 +22,11 @@ import (
 // stopCmd represents the stop command
 var stopCmd = &cobra.Command{
 	Use:   "stop",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Stop working on running time entry",
+	Long: `If you stop working on a timeentry you can stop the
+time entry by calling
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+  toggl time stop`,
 	Run: func(cmd *cobra.Command, args []string) {
 		timeentries.StopCurrent()
 	},
