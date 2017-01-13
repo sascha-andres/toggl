@@ -18,16 +18,15 @@ import (
 	"fmt"
 
 	"github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/types"
 )
 
-func getProjectIndex(account toggl.Account, settings types.Settings) (int, error) {
+func getProjectIndex(account toggl.Account, project string) (int, error) {
 	for i, prj := range account.Data.Projects {
-		if prj.Name == settings.ProjectName {
+		if prj.Name == project {
 			return i, nil
 		}
 	}
-	return -1, fmt.Errorf("Project not found: %s", settings.ProjectName)
+	return -1, fmt.Errorf("Project not found: %s", project)
 }
 
 func getCurrentTimeEntry(account toggl.Account) (*toggl.TimeEntry, error) {

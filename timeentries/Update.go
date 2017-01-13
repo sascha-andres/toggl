@@ -2,12 +2,12 @@ package timeentries
 
 import (
 	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/types"
+	"github.com/spf13/viper"
 )
 
 // Update sets new values
-func Update(settings types.Settings) error {
-	session := toggl.OpenSession(settings.Token)
+func Update() error {
+	session := toggl.OpenSession(viper.GetString("token"))
 
 	account, err := session.GetAccount()
 	if err != nil {
@@ -19,11 +19,11 @@ func Update(settings types.Settings) error {
 		return err
 	}
 
-	timeEntry.Description = settings.Description
+	timeEntry.Description = viper.GetString("time.description")
 
-	if 0 < len(settings.ProjectName) {
+	if 0 < len(viper.GetString("time.project")) {
 		var index int
-		if index, err = getProjectIndex(account, settings); err != nil {
+		if index, err = getProjectIndex(account, viper.GetString("time.project")); err != nil {
 			return err
 		}
 		timeEntry.Pid = account.Data.Projects[index].ID

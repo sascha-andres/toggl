@@ -2,14 +2,14 @@ package timeentries
 
 import (
 	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/types"
+	"github.com/spf13/viper"
 )
 
 // New creates a new time entry
-func New(settings types.Settings) error {
-	session := toggl.OpenSession(settings.Token)
-	if len(settings.ProjectName) == 0 {
-		_, err := session.StartTimeEntry(settings.Description)
+func New() error {
+	session := toggl.OpenSession(viper.GetString("token"))
+	if viper.GetString("time.project") == "" {
+		_, err := session.StartTimeEntry(viper.GetString("time.description"))
 		if err != nil {
 			return err
 		}
@@ -20,10 +20,10 @@ func New(settings types.Settings) error {
 			return err
 		}
 		var index int
-		if index, err = getProjectIndex(account, settings); err != nil {
+		if index, err = getProjectIndex(account, viper.GetString("time.project")); err != nil {
 			return err
 		}
-		_, err = session.StartTimeEntryForProject(settings.Description, account.Data.Projects[index].ID)
+		_, err = session.StartTimeEntryForProject(viper.GetString("time.description"), account.Data.Projects[index].ID)
 		if err != nil {
 			return err
 		}
