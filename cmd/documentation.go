@@ -12,17 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
 import (
-	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
+	"github.com/spf13/cobra"
+	"github.com/spf13/cobra/doc"
 )
 
-func main() {
-	cmd.Execute()
+// documentationCmd represents the documentation command
+var documentationCmd = &cobra.Command{
+	Use:   "documentation",
+	Short: "A brief description of your command",
+	Long: `A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		doc.GenMarkdownTree(RootCmd, "./docs")
+	},
 }
 
 func init() {
-	toggl.DisableLog()
+	RootCmd.AddCommand(documentationCmd)
 }

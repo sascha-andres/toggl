@@ -12,17 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
 import (
-	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
+	"log"
+
+	"github.com/sascha-andres/toggl/timeentries"
+	"github.com/spf13/cobra"
 )
 
-func main() {
-	cmd.Execute()
+// stopCmd represents the stop command
+var stopCmd = &cobra.Command{
+	Use:   "stop",
+	Short: "Stop working on running time entry",
+	Long: `If you stop working on a timeentry you can stop the
+time entry by calling
+
+  toggl time stop`,
+	Run: func(cmd *cobra.Command, args []string) {
+		checkPFlags()
+		if err := timeentries.StopCurrent(); err != nil {
+			log.Fatal(err)
+		}
+	},
 }
 
 func init() {
-	toggl.DisableLog()
+	timeCmd.AddCommand(stopCmd)
 }
