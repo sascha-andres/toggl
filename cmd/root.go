@@ -54,7 +54,7 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toggl.yaml)")
 	RootCmd.PersistentFlags().String("token", "", "Provide your API token")
 	viper.BindPFlag("token", RootCmd.PersistentFlags().Lookup("token"))
-	viper.BindEnv("token", "TOGGL_TOKEN") // backwards compatibilty
+	viper.BindEnv("token", "TOGGL_TOKEN") // backwards compatibility
 }
 
 // initConfig reads in config file and ENV variables if set.
