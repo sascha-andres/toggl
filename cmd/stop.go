@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/timeentries"
 	"github.com/spf13/cobra"
 )
@@ -28,7 +30,9 @@ time entry by calling
 
   toggl time stop`,
 	Run: func(cmd *cobra.Command, args []string) {
-		timeentries.StopCurrent()
+		if err := timeentries.StopCurrent(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

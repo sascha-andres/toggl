@@ -37,7 +37,9 @@ Note: --name is required`,
 		if "" == viper.GetString("project.name") {
 			log.Fatal("Please provide --name")
 		}
-		projects.Add()
+		if err := projects.Add(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

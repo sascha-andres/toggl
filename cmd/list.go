@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/projects"
 	"github.com/spf13/cobra"
 )
@@ -29,7 +31,9 @@ Format used: "  <Name> (<ID>)"
 
 toggl project list`,
 	Run: func(cmd *cobra.Command, args []string) {
-		projects.List()
+		if err := projects.List(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

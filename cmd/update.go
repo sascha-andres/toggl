@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/timeentries"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -28,7 +30,9 @@ var updateCmd = &cobra.Command{
 
   toggl time update --desc "New description" --project "My project"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		timeentries.Update()
+		if err := timeentries.Update(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

@@ -35,7 +35,9 @@ Note: --name is required`,
 		if "" == viper.GetString("project.name") {
 			log.Fatal("Please provide --name")
 		}
-		projects.Delete()
+		if err := projects.Delete(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 

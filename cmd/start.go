@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"log"
+
 	"github.com/sascha-andres/toggl/timeentries"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -30,7 +32,9 @@ You can provide a project using --project and a descriptionusing --desc.
 
 Example toggl time start --desc "Hello toggl!"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		timeentries.New()
+		if err := timeentries.New(); err != nil {
+			log.Fatal(err)
+		}
 	},
 }
 
