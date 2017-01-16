@@ -19,11 +19,11 @@ func Update() error {
 		return err
 	}
 
-	timeEntry.Description = viper.GetString("time.description")
+	timeEntry.Description = viper.GetString("time.update.description")
 
-	if 0 < len(viper.GetString("time.project")) {
+	if 0 < len(viper.GetString("time.update.project")) {
 		var index int
-		if index, err = getProjectIndex(account, viper.GetString("time.project")); err != nil {
+		if index, err = getProjectIndex(account, viper.GetString("time.update.project")); err != nil {
 			return err
 		}
 		timeEntry.Pid = account.Data.Projects[index].ID

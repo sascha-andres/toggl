@@ -8,8 +8,8 @@ import (
 // New creates a new time entry
 func New() error {
 	session := toggl.OpenSession(viper.GetString("token"))
-	if viper.GetString("time.project") == "" {
-		_, err := session.StartTimeEntry(viper.GetString("time.description"))
+	if viper.GetString("time.start.project") == "" {
+		_, err := session.StartTimeEntry(viper.GetString("time.start.description"))
 		if err != nil {
 			return err
 		}
@@ -20,10 +20,10 @@ func New() error {
 			return err
 		}
 		var index int
-		if index, err = getProjectIndex(account, viper.GetString("time.project")); err != nil {
+		if index, err = getProjectIndex(account, viper.GetString("time.start.project")); err != nil {
 			return err
 		}
-		_, err = session.StartTimeEntryForProject(viper.GetString("time.description"), account.Data.Projects[index].ID)
+		_, err = session.StartTimeEntryForProject(viper.GetString("time.start.description"), account.Data.Projects[index].ID)
 		if err != nil {
 			return err
 		}

@@ -13,6 +13,6 @@ func Add() error {
 		return err
 	}
 	wid := account.Data.Workspaces[0].ID
-	_, err = session.CreateProject(viper.GetString("project.name"), wid)
+	_, err = session.CreateProject(viper.GetString("project.create.name"), wid)
 	return err
 }

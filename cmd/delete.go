@@ -33,7 +33,7 @@ Usage: toggl project delete --name "My project"
 Note: --name is required`,
 	Run: func(cmd *cobra.Command, args []string) {
 		checkPFlags()
-		if "" == viper.GetString("project.name") {
+		if "" == viper.GetString("project.delete.name") {
 			log.Fatal("Please provide --name")
 		}
 		if err := projects.Delete(); err != nil {
@@ -45,5 +45,5 @@ Note: --name is required`,
 func init() {
 	projectCmd.AddCommand(deleteCmd)
 	deleteCmd.Flags().StringP("name", "n", "", "Project name to add")
-	viper.BindPFlag("project.name", deleteCmd.Flags().Lookup("name"))
+	viper.BindPFlag("project.delete.name", deleteCmd.Flags().Lookup("name"))
 }

@@ -35,7 +35,7 @@ Example: toggl project create --name "My project"
 Note: --name is required`,
 	Run: func(cmd *cobra.Command, args []string) {
 		checkPFlags()
-		if "" == viper.GetString("project.name") {
+		if "" == viper.GetString("project.create.name") {
 			log.Fatal("Please provide --name")
 		}
 		if err := projects.Add(); err != nil {
@@ -47,5 +47,5 @@ Note: --name is required`,
 func init() {
 	projectCmd.AddCommand(createCmd)
 	createCmd.Flags().StringP("name", "n", "", "Project name to add")
-	viper.BindPFlag("project.name", createCmd.Flags().Lookup("name"))
+	viper.BindPFlag("project.create.name", createCmd.Flags().Lookup("name"))
 }
