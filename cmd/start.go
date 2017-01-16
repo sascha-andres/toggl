@@ -33,6 +33,9 @@ You can provide a project using --project and a descriptionusing --desc.
 Example toggl time start --desc "Hello toggl!"`,
 	Run: func(cmd *cobra.Command, args []string) {
 		checkPFlags()
+		if "" == viper.GetString("time.start.description") {
+			log.Fatal("A description is required")
+		}
 		if err := timeentries.New(); err != nil {
 			log.Fatal(err)
 		}
@@ -43,6 +46,6 @@ func init() {
 	timeCmd.AddCommand(startCmd)
 	startCmd.Flags().StringP("project", "p", "", "Assign project")
 	startCmd.Flags().StringP("desc", "d", "", "Description")
-	viper.BindPFlag("time.project", startCmd.Flags().Lookup("project"))
-	viper.BindPFlag("time.description", startCmd.Flags().Lookup("desc"))
+	viper.BindPFlag("time.start.project", startCmd.Flags().Lookup("project"))
+	viper.BindPFlag("time.start.description", startCmd.Flags().Lookup("desc"))
 }
