@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	togglVersion = "20170113"
+	togglVersion = "20170116"
 )
 
 // versionCmd represents the version command
