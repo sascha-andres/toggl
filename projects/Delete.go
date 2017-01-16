@@ -28,7 +28,7 @@ func Delete() error {
 	}
 	var projectToDelete toggl.Project
 	for _, prj := range account.Data.Projects {
-		if prj.Name == viper.GetString("project.name") {
+		if prj.Name == viper.GetString("project.delete.name") {
 			projectToDelete = prj
 			break
 		}

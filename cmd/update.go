@@ -41,6 +41,6 @@ func init() {
 	timeCmd.AddCommand(updateCmd)
 	updateCmd.Flags().StringP("project", "p", "", "Assign project")
 	updateCmd.Flags().StringP("desc", "d", "", "Description")
-	viper.BindPFlag("time.project", updateCmd.Flags().Lookup("project"))
-	viper.BindPFlag("time.description", updateCmd.Flags().Lookup("desc"))
+	viper.BindPFlag("time.update.project", updateCmd.Flags().Lookup("project"))
+	viper.BindPFlag("time.update.description", updateCmd.Flags().Lookup("desc"))
 }
