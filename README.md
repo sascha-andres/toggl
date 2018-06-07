@@ -4,7 +4,7 @@ This is a toggle command line utility. It is written in GO.
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/sascha-andres/toggl)](https://goreportcard.com/report/github.com/sascha-andres/toggl) [![Build Status](https://travis-ci.org/sascha-andres/toggl.svg?branch=master)](https://travis-ci.org/sascha-andres/toggl) [![codebeat badge](https://codebeat.co/badges/66adec90-4ccb-4d6a-94c6-484f11bd4c2a)](https://codebeat.co/projects/github-com-sascha-andres-toggl)
 
-Deprecated in favor of: https://github.com/sascha-andres/timenote
+toggl time deprecated in favor of: https://github.com/sascha-andres/timenote
 
 ## How to use
 
