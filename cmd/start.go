@@ -17,7 +17,7 @@ package cmd
 import (
 	"log"
 
-	"github.com/sascha-andres/toggl/timeentries"
+	"livingit.de/code/toggl/timeentries"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

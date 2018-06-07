@@ -16,7 +16,7 @@ package main
 
 import (
 	toggl "github.com/jason0x43/go-toggl"
-	"github.com/sascha-andres/toggl/cmd"
+	"livingit.de/code/toggl/cmd"
 )
 
 func main() {

@@ -17,7 +17,7 @@ package cmd
 import (
 	"log"
 
-	"github.com/sascha-andres/toggl/projects"
+	"livingit.de/code/toggl/projects"
 	"github.com/spf13/cobra"
 )
 
