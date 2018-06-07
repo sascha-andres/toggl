@@ -5,4 +5,6 @@ go:
 
 install:
  - go get -u -v github.com/kardianos/govendor
- - cd $GOPATH/src/github.com/sascha-andres/toggl && govendor sync && go install
+ - mkdir -p $HOME/gopath/src/livingit.de/code/
+ - cd $HOME/gopath/src/livingit.de/code && ln -s ../../github.com/sascha-andres/toggl toggl
+ - cd $HOME/gopoath/src/livingit.de/code/toggl && govendor sync && go install
