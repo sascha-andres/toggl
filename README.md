@@ -4,6 +4,8 @@ This is a toggle command line utility. It is written in GO.
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/sascha-andres/toggl)](https://goreportcard.com/report/github.com/sascha-andres/toggl) [![Build Status](https://travis-ci.org/sascha-andres/toggl.svg?branch=master)](https://travis-ci.org/sascha-andres/toggl) [![codebeat badge](https://codebeat.co/badges/66adec90-4ccb-4d6a-94c6-484f11bd4c2a)](https://codebeat.co/projects/github-com-sascha-andres-toggl)
 
+toggl time deprecated in favor of: https://github.com/sascha-andres/timenote
+
 ## How to use
 
 See [Toggl command documentation](docs/toggl.md)
@@ -27,6 +29,7 @@ You can connect to me using Twitter at https://twitter.com/livingit_de.
 
 |Version|Authors|Description|
 |---|---|---|
+|1.0.1|Sascha Andres|deprecation of toggl time|
 |20170116|Sascha Andres|Viper flag handling|
 |20170111|Sascha Andres|Using original library|
 |20170104|Sascha Andres|Refactorings|
